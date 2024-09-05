@@ -18,7 +18,8 @@ namespace Patient.Api.Extensions
             services.AddDbContext<PatientContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<IRepository<Data.Models.Patient>, PatientRepository>();
-
+            services.AddTransient<IByExpressionSearcher<Data.Models.Patient>, PatientRepository>();
+            
             return services;
         }
 

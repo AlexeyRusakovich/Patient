@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Patient.Api.Helpers;
+using Patient.Api.Models;
 using Patient.Data.Context;
 using Patient.Data.Interfaces;
+using System.Linq.Expressions;
 
 namespace Patient.Api.Services
 {
-    public class PatientRepository : IRepository<Data.Models.Patient>
+    public class PatientRepository : IRepository<Data.Models.Patient>, IByExpressionSearcher<Data.Models.Patient>
     {
         private readonly PatientContext _context;
         private readonly IMapper _mapper;
@@ -73,6 +77,22 @@ namespace Patient.Api.Services
                 .AsNoTracking()
                 .Include(x => x.GivenNames)
                 .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<Data.Models.Patient>> GetAllByDateExpressions(IEnumerable<Expression<Func<Data.Models.Patient, bool>>> expressions)
+        {
+            IQueryable<Data.Models.Patient>? patientsQuery = _context.Patients;
+
+            foreach (var expression in expressions)
+            {
+                patientsQuery = patientsQuery.Where(expression);
+            }
+
+            var patients = await patientsQuery
+                .Include(x => x.GivenNames)
+                .ToListAsync();
+
+            return patients;
         }
     }
 }

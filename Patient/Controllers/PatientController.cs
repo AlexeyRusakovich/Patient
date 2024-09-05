@@ -11,11 +11,16 @@ namespace Patient.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IRepository<Data.Models.Patient> _patientRepository;
+        private readonly IByExpressionSearcher<Data.Models.Patient> _patientByDateSearcher;
         private readonly IMapper _mapper;
 
-        public PatientController(IRepository<Data.Models.Patient> patientRepository, IMapper mapper)
+        public PatientController(
+            IRepository<Data.Models.Patient> patientRepository,
+            IByExpressionSearcher<Data.Models.Patient> patientByDateSearcher,
+            IMapper mapper)
         {
             _patientRepository = patientRepository;
+            _patientByDateSearcher = patientByDateSearcher;
             _mapper = mapper;
         }
 
@@ -41,7 +46,14 @@ namespace Patient.Controllers
                 return BadRequest(ModelState);
 
             var searchRequest = new DateSearchRequest { Date1 = date[0], Date2 = date.Length > 1 ? date[1] : null };
-            return Ok();
+            var fhirDates = new[] { searchRequest.Date1, searchRequest.Date2 }
+                .Select(x => x?.ToFhirDate())
+                .Where(x => x != null);
+
+            var fhirExpressions = fhirDates.Select(x => x.ToExpression()).ToList();
+
+            var result = await _patientByDateSearcher.GetAllByDateExpressions(fhirExpressions);
+            return Ok(result);
         }
 
         [HttpPost]
