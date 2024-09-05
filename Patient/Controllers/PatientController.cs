@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Patient.Api.Helpers;
 using Patient.Api.Models;
 using Patient.Data.Interfaces;
 
@@ -31,6 +32,16 @@ namespace Patient.Controllers
             var patient = await _patientRepository.GetById(id);
             var mapped = _mapper.Map<PatientDto>(patient);
             return Ok(mapped);
+        }
+
+        [HttpGet("searchByDate")]
+        public async Task<IActionResult> GetPatientsByDate([FromQuery][FHIRDate] string[] date)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var searchRequest = new DateSearchRequest { Date1 = date[0], Date2 = date.Length > 1 ? date[1] : null };
+            return Ok();
         }
 
         [HttpPost]
