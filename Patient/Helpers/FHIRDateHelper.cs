@@ -33,15 +33,15 @@ namespace Patient.Api.Helpers
         public static Expression<Func<Data.Models.Patient, bool>> ToExpression(this FHIRDate fhirDate) =>
             fhirDate switch
             {
-                { Prefix: FHIRDatePrefix.Eq } => (x) => x.BirthDate == fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Ne } => (x) => x.BirthDate != fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Gt } => (x) => x.BirthDate > fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Lt } => (x) => x.BirthDate < fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Ge } => (x) => x.BirthDate >= fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Le } => (x) => x.BirthDate <= fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Sa } => (x) => x.BirthDate >= fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Eb } => (x) => x.BirthDate <= fhirDate.Date,
-                { Prefix: FHIRDatePrefix.Ap } => (x) => x.BirthDate == fhirDate.Date,
+                { Prefix: FHIRDatePrefix.eq } => (x) => x.BirthDate == fhirDate.Date,
+                { Prefix: FHIRDatePrefix.ne } => (x) => x.BirthDate != fhirDate.Date,
+                { Prefix: FHIRDatePrefix.gt } => (x) => x.BirthDate > fhirDate.Date,
+                { Prefix: FHIRDatePrefix.lt } => (x) => x.BirthDate < fhirDate.Date,
+                { Prefix: FHIRDatePrefix.ge } => (x) => x.BirthDate >= fhirDate.Date,
+                { Prefix: FHIRDatePrefix.le } => (x) => x.BirthDate <= fhirDate.Date,
+                { Prefix: FHIRDatePrefix.sa } => (x) => x.BirthDate >= fhirDate.Date,
+                { Prefix: FHIRDatePrefix.eb } => (x) => x.BirthDate <= fhirDate.Date,
+                { Prefix: FHIRDatePrefix.ap } => (x) => x.BirthDate == fhirDate.Date,
                 _ => (x) => x.BirthDate == fhirDate.Date,
             };
     }

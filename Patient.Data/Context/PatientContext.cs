@@ -24,6 +24,8 @@ namespace Patient.Data.Context
             modelBuilder.Entity<Models.Patient>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasIndex(e => e.BirthDate);
             });
         }
     }

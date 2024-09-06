@@ -52,7 +52,7 @@ namespace Patient.Seeder
                         "Second"
                     }
                 },
-                BirthDate = DateTime.Now,
+                BirthDate = GetDateAround6Month(),
                 Gender = RandomEnumValue<Gender>(),
                 Active = true
             };
@@ -64,6 +64,11 @@ namespace Patient.Seeder
         {
             var v = Enum.GetValues(typeof(T));
             return (T)v.GetValue(_R.Next(v.Length));
+        }
+
+        private static DateTime GetDateAround6Month()
+        {
+            return DateTime.Now.AddDays(_R.NextInt64(-90, 90));
         }
     }
 }
