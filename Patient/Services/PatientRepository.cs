@@ -5,11 +5,12 @@ using Patient.Api.Helpers;
 using Patient.Api.Models;
 using Patient.Data.Context;
 using Patient.Data.Interfaces;
+using Patient.Data.Models;
 using System.Linq.Expressions;
 
 namespace Patient.Api.Services
 {
-    public class PatientRepository : IRepository<Data.Models.Patient>, IByExpressionSearcher<Data.Models.Patient>
+    public class PatientRepository : IRepository<Data.Models.Patient>, IByDateSearcher<Data.Models.Patient>
     {
         private readonly PatientContext _context;
         private readonly IMapper _mapper;
@@ -79,8 +80,10 @@ namespace Patient.Api.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Data.Models.Patient>> GetAllByDateExpressions(IEnumerable<Expression<Func<Data.Models.Patient, bool>>> expressions)
+        public async Task<IEnumerable<Data.Models.Patient>> GetAllByDates(IEnumerable<FHIRDate> fhirDates)
         {
+            var expressions = fhirDates.Select(x => x.ToExpression()).ToList();
+
             IQueryable<Data.Models.Patient>? patientsQuery = _context.Patients;
 
             foreach (var expression in expressions)

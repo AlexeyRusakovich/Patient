@@ -1,4 +1,4 @@
-﻿using Patient.Api.Models;
+﻿using Patient.Data.Models;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
@@ -6,17 +6,18 @@ namespace Patient.Api.Helpers
 {
     public static class FHIRDateHelper
     {
-        public static FHIRDate ToFhirDate(this string FhirDateString)
+        public static FHIRDate ToFhirDate(this string fhirDateString)
         {
-            if (string.IsNullOrEmpty(FhirDateString))
+            if (string.IsNullOrEmpty(fhirDateString))
                 return null;
 
-            var match = Regex.Match(FhirDateString, Constants.FHIR.FhirDateRegex);
+            var match = Regex.Match(fhirDateString, Constants.FHIR.FhirDateRegex);
             
             if (match.Groups.Count > 0)
             {
                 var prefix = match.Groups["Prefix"].Value;
                 var date = match.Groups["Date"].Value;
+
                 return new FHIRDate
                 {
                     Prefix = string.IsNullOrEmpty(prefix) ? FHIRDatePrefix.None : Enum.Parse<FHIRDatePrefix>(prefix),

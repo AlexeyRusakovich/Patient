@@ -1,4 +1,4 @@
-﻿namespace Patient.Api.Models
+﻿namespace Patient.Data.Models
 {
     public class FHIRDate
     {
