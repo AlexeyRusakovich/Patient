@@ -1,0 +1,18 @@
+﻿services:
+  docker-patient-api:
+    container_name: docker-patient-api-container
+    image: aliakseirus/patient:latest
+    environment:
+      - SA_PASSWORD=PaSSw0rd
+    ports:
+      - "5000:8080"
+    depends_on:
+      - docker-patient-sqlserver
+  docker-patient-sqlserver:
+    container_name: docker-patient-sqlserver-container
+    image: willh/mssql-server-windows-developer:20H2
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=PaSSw0rd
+    ports:
+      - "1433:1433"

@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "70699a28-de2b-49a9-900d-840192112981",
+		"name": "Patient.Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3188553"
+	},
+	"item": [
+		{
+			"name": "Get All Patients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://172.20.227.165:8080/Patient",
+					"protocol": "http",
+					"host": [
+						"172",
+						"20",
+						"227",
+						"165"
+					],
+					"port": "8080",
+					"path": [
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get patient by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://172.20.227.165:8080/Patient/d8ff176f-bd0a-4b8e-b329-871952e32e1f",
+					"protocol": "http",
+					"host": [
+						"172",
+						"20",
+						"227",
+						"165"
+					],
+					"port": "8080",
+					"path": [
+						"Patient",
+						"d8ff176f-bd0a-4b8e-b329-871952e32e1f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create patient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {\r\n        \"id\": \"d8ff176f-bd0a-4b8e-b329-871952e32e1f\",\r\n        \"use\": \"official\",\r\n        \"family\": \"Иванов\",\r\n        \"given\": [\r\n            \"Иван\",\r\n            \"Иванович\"\r\n        ]\r\n    },\r\n    \"gender\": \"male\",\r\n    \"birthDate\": \"2024-01-13T18:25:43\",\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:27011/Patient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "27011",
+					"path": [
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update patient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {\r\n        \"id\": \"d8ff176f-bd0a-4b8e-b329-871952e32e1f\",\r\n        \"use\": \"official2\",\r\n        \"family\": \"Иванов\",\r\n        \"given\": [\r\n            \"Иван3\",\r\n            \"Иванович3\"\r\n        ]\r\n    },\r\n    \"gender\": \"male\",\r\n    \"birthDate\": \"2024-01-13T18:25:43\",\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.20.227.165:8080/Patient",
+					"protocol": "http",
+					"host": [
+						"172",
+						"20",
+						"227",
+						"165"
+					],
+					"port": "8080",
+					"path": [
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Patient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://172.20.227.165:8080/Patient/d8ff176f-bd0a-4b8e-b329-871952e32e1f",
+					"protocol": "http",
+					"host": [
+						"172",
+						"20",
+						"227",
+						"165"
+					],
+					"port": "8080",
+					"path": [
+						"Patient",
+						"d8ff176f-bd0a-4b8e-b329-871952e32e1f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by dates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:27011/Patient/searchByDate?date=123&date=312",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "27011",
+					"path": [
+						"Patient",
+						"searchByDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "123"
+						},
+						{
+							"key": "date",
+							"value": "312"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by date range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://172.20.227.165:8080/Patient/searchByDate?date=lt2024-11-24&date=gt2024-06-19",
+					"protocol": "http",
+					"host": [
+						"172",
+						"20",
+						"227",
+						"165"
+					],
+					"port": "8080",
+					"path": [
+						"Patient",
+						"searchByDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "lt2024-11-24"
+						},
+						{
+							"key": "date",
+							"value": "gt2024-06-19"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

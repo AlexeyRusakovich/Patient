@@ -10,7 +10,7 @@ namespace Patient
 
             // Add services to the container.
 
-            builder.Services.ConfigureServices(builder.Configuration);
+            builder.Services.ConfigureServices(builder.Configuration, builder.Environment.IsDevelopment());
 
             var app = builder.Build();
 

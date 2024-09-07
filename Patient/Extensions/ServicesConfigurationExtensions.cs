@@ -10,7 +10,7 @@ namespace Patient.Api.Extensions
 {
     public static class ServicesConfigurationExtensions
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services, ConfigurationManager configuration)
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, ConfigurationManager configuration, bool IsDevelopment)
         {
             services.AddControllers();
 
@@ -18,6 +18,11 @@ namespace Patient.Api.Extensions
 
             //Db
             var connection = configuration?.GetSection("ConnectionStrings")?.GetSection("DefaultConnection")?.Value;
+            if (!IsDevelopment)
+            {
+                var password = Environment.GetEnvironmentVariable("SA_PASSWORD");
+                connection = string.Format(connection, password);
+            }
             services.AddDbContext<PatientContext>(options => options.UseSqlServer(connection));
 
             // Repository
